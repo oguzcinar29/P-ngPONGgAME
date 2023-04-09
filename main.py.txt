@@ -1,0 +1,65 @@
+from turtle import Turtle,Screen
+from score import Score
+from paddle import Paddle
+from ball import Ball
+import time
+
+screen=Screen()
+screen.setup(width=800,height=600)
+screen.bgcolor("black")
+screen.tracer(0)
+
+#pictures in the screen
+score_table1=Score()
+score_table2=Score()
+strip_turtle=Score()
+strip_turtle.write_strip()
+score_table1.my_set_pos(-100,200)
+score_table2.my_set_pos(100,200)
+
+#create paddles and make locations
+pad1=Paddle((350,0))
+pad2=Paddle((-350,0))
+
+#create ball
+ball=Ball()
+
+
+
+
+screen.listen()
+screen.onkey(fun=pad1.up,key="Up")
+screen.onkey(fun=pad1.down,key="Down")
+screen.onkey(fun=pad2.up,key="w")
+screen.onkey(fun=pad2.down,key="s")
+
+ball.speed("fast")
+a=100
+flag=True
+while flag:
+    time.sleep(ball.spid)
+    screen.update()
+    ball.move_ball()
+    
+    if ball.ycor()>280 or ball.ycor()<-280:
+        ball.move_y()
+    
+    if (ball.distance(pad1)<60 and ball.xcor()>320) or (ball.distance(pad2)<60 and ball.xcor()<-320):
+        ball.move_x()
+        ball.speed(10+a)
+    
+    if ball.xcor()>370:
+        score_table1.increment_1()
+        ball.home()
+        ball.zero_speed()
+        
+    if ball.xcor()<-370:
+        score_table2.increment_2()
+        ball.home()
+        ball.zero_speed()
+
+
+
+
+
+screen.exitonclick()

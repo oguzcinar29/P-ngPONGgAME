@@ -1,0 +1,28 @@
+from turtle import Turtle
+from score import Score
+class Ball(Turtle):
+    def __init__(self, shape: str = "classic", undobuffersize: int = 1000, visible: bool = True) -> None:
+        super().__init__(shape, undobuffersize, visible)
+        self.shape("circle")
+        self.color("white")
+        self.penup()
+        self.cor_x=10
+        self.cor_y=10
+        self.spid=0.1
+
+    def move_ball(self):
+        new_x=self.xcor()+self.cor_x
+        new_y=self.ycor()+self.cor_y
+        self.goto(x=new_x,y=new_y)
+        
+    def move_x(self):
+        self.cor_x*=-1
+        self.spid*=0.9
+        
+    def move_y(self):
+        self.cor_y*=-1
+        
+    def zero_speed(self):
+        self.spid=0.1
+    
+    
